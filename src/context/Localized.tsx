@@ -1,64 +1,125 @@
-// @ts-nocheck
+
 import React from 'react';
 import { useLanguage } from './LanguageContext';
 
-// Exact UI copy translations. Product facts and AI responses are selected separately
-// from the Tamil/English fields returned by the analyzer.
+// Tamil translations for CraftLens UI.
+// Keys not listed here will remain in their original language.
 const TA: Record<string, string> = {
-  'Home':'முகப்பு','Analyze':'பகுப்பாய்வு','My Crafts':'எனது கைவினைப் பொருட்கள்',
-  'Analysis ready':'பகுப்பாய்வு தயார்','Analyze Craft':'கைவினைப் பொருளைப் பகுப்பாய்வு செய்',
-  'Close menu':'பட்டியலை மூடு','Open menu':'பட்டியலைத் திற',
-  'Upload & Describe':'பதிவேற்றி விவரிக்கவும்','AI Analysis':'AI பகுப்பாய்வு','Listing':'பட்டியல்',
-  'Fair Price':'நியாயமான விலை','Buyer Q&A':'வாங்குபவர் கேள்விகள்','Sell Coach':'விற்பனை வழிகாட்டி','Final Listing':'இறுதிப் பட்டியல்',
-  'Empowering Artisans with':'கைவினைஞர்களுக்கு அதிகாரம் அளிக்கும்','AI Intelligence':'AI நுண்ணறிவு',
-  'Seamless Workflow':'எளிய செயல்முறை','Designed specifically for craft creators':'கைவினைப் படைப்பாளர்களுக்காகவே வடிவமைக்கப்பட்டது',
-  'Core Capabilities':'முக்கிய அம்சங்கள்','Tools to market & price your craft with confidence':'உங்கள் கைவினைப் பொருளை நம்பிக்கையுடன் சந்தைப்படுத்தவும் விலை நிர்ணயிக்கவும் உதவும் கருவிகள்',
-  'Upload Photo':'புகைப்படத்தைப் பதிவேற்றவும்','Capture or upload a clear photo of your handmade product.':'உங்கள் கையால் செய்த பொருளின் தெளிவான புகைப்படத்தை எடுக்கவும் அல்லது பதிவேற்றவும்.',
-  'AI Analysis':'AI பகுப்பாய்வு','CraftLens detects material, craftsmanship & key visual features.':'CraftLens பொருளின் மூலப்பொருள், கைவினை முறை மற்றும் முக்கிய அம்சங்களைக் கண்டறியும்.',
-  'Bilingual Story':'இருமொழி விளக்கம்','Auto-generate compelling listings in Tamil & English for global reach.':'உள்ளூர் மற்றும் உலகளாவிய வாடிக்கையாளர்களுக்காக தமிழ் அல்லது ஆங்கிலத்தில் தயாரிப்பு விளக்கத்தை உருவாக்கும்.',
-  'Fair Market Pricing':'நியாயமான சந்தை விலை','Get data-backed price recommendations from verified artisan sales.':'சந்தைத் தரவின் அடிப்படையில் விலை பரிந்துரைகளைப் பெறுங்கள்.',
-  'Tamil Voice Input':'தமிழ் குரல் உள்ளீடு','Speak freely in Tamil. AI extracts factual specifications without hallucination.':'தமிழில் பேசுங்கள். AI உங்கள் விளக்கத்திலிருந்து பொருள் விவரங்களைப் பெறும்.',
-  'Data-Backed Fair Pricing':'தரவு அடிப்படையிலான நியாய விலை','AI Sell Coach':'AI விற்பனை வழிகாட்டி',
-  'Step 1 of 7':'படி 1 / 7','Step 2 of 7':'படி 2 / 7','Step 3 of 7':'படி 3 / 7','Step 4 of 7':'படி 4 / 7','Step 5 of 7':'படி 5 / 7','Step 6 of 7':'படி 6 / 7','Step 7 of 7':'படி 7 / 7',
-  'Analyze Your Craft':'உங்கள் கைவினைப் பொருளைப் பகுப்பாய்வு செய்யுங்கள்',
-  'Upload a clear photo and describe your product. CraftLens AI will do the rest.':'தெளிவான புகைப்படத்தைப் பதிவேற்றி உங்கள் பொருளை விவரிக்கவும். மீதியை CraftLens AI செய்யும்.',
-  'Product Photo':'பொருளின் புகைப்படம்','Describe Your Craft':'உங்கள் கைவினைப் பொருளை விவரிக்கவும்',
-  'Drop your craft image here':'உங்கள் பொருளின் புகைப்படத்தை இங்கே விடவும்','or click to choose from gallery':'அல்லது கேலரியில் இருந்து தேர்வு செய்யவும்',
-  'JPG, PNG or WEBP · Clear product photo':'JPG, PNG அல்லது WEBP · தெளிவான புகைப்படம்','Upload Photo':'புகைப்படத்தைப் பதிவேற்றவும்',
-  'Take Photo':'புகைப்படம் எடுக்கவும்','Upload Photo':'புகைப்படத்தைப் பதிவேற்றவும்','Close':'மூடு',
-  'AI analyzes your actual image and description. Content changes with every new photo.':'AI உங்கள் புகைப்படத்தையும் விளக்கத்தையும் பகுப்பாய்வு செய்கிறது. ஒவ்வொரு புதிய புகைப்படத்திற்கும் முடிவு மாறும்.',
-  'Analyze with AI':'AI மூலம் பகுப்பாய்வு செய்','Analyzing…':'பகுப்பாய்வு செய்கிறது…','Close':'மூடு',
-  'Starting camera…':'கேமரா தொடங்குகிறது…','Analyzing your craft…':'உங்கள் கைவினைப் பொருளைப் பகுப்பாய்வு செய்கிறது…',
-  'CraftLens Analysis':'CraftLens பகுப்பாய்வு','Facts extracted directly from your photo and description. Unconfirmed info is clearly marked.':'உங்கள் புகைப்படம் மற்றும் விளக்கத்திலிருந்து பெறப்பட்ட விவரங்கள். உறுதிப்படுத்தப்படாத தகவல்கள் தெளிவாகக் குறிக்கப்படும்.',
-  'Material':'மூலப்பொருள்','Craftsmanship':'கைவினை முறை','Dimensions':'அளவுகள்','Origin':'பிறப்பிடம்',
-  'Craft Identification':'கைவினைப் பொருள் அடையாளம்','AI Price Estimate':'AI விலை மதிப்பீடு',
-  'Bilingual Product Listing':'இருமொழித் தயாரிப்புப் பட்டியல்','Auto-generated listing in Tamil + English optimized for local buyers & e-commerce export.':'உள்ளூர் வாடிக்கையாளர்கள் மற்றும் இணைய விற்பனைக்காக உருவாக்கப்பட்ட தயாரிப்புப் பட்டியல்.',
-  'Bilingual (Tamil + English)':'தமிழ் + ஆங்கிலம்','English Only':'ஆங்கிலம் மட்டும்','தமிழ் மட்டும்':'தமிழ் மட்டும்',
-  'English Description':'ஆங்கில விளக்கம்','தமிழ் விவரிப்பு':'தமிழ் விளக்கம்','Copy Text':'உரையை நகலெடு','Copied!':'நகலெடுக்கப்பட்டது!',
-  'Recommend Fair Price':'நியாயமான விலையைப் பரிந்துரை செய்','Fair Price Recommendation':'நியாயமான விலை பரிந்துரை',
-  'AI Recommended Selling Price':'AI பரிந்துரைக்கும் விற்பனை விலை','Fair Value Price Range':'நியாயமான விலை வரம்பு',
-  'Minimum Base':'குறைந்தபட்ச விலை','Maximum Premium':'அதிகபட்ச விலை','Market Benchmarks':'சந்தை ஒப்பீடுகள்',
-  'Category Market Average':'வகையின் சராசரி சந்தை விலை','Your Stated Final Selling Price (INR)':'நீங்கள் நிர்ணயித்த இறுதி விற்பனை விலை (ரூ.)',
-  'Simulate Buyer Objections':'வாங்குபவரின் கேள்விகளைப் பயிற்சி செய்','Buyer Simulator':'வாங்குபவர் கேள்வி பயிற்சி',
-  'Potential Buyer Asks:':'வாங்குபவர் கேட்கக்கூடிய கேள்வி:','✦ Recommended Artisan Answer:':'✦ கைவினைஞருக்கான பரிந்துரைக்கப்பட்ட பதில்:',
-  '✦ Simulated Objection':'✦ மாதிரி வாடிக்கையாளர் கேள்வி',
-  'Quality Audit Score':'தர மதிப்பீட்டு மதிப்பெண்','Your listing meets all quality benchmarks!':'உங்கள் பட்டியல் தர அளவுகோல்களைப் பூர்த்தி செய்கிறது!',
-  'Marketplace Ready':'சந்தையில் விற்கத் தயார்','Good — Room to Improve':'நல்லது — மேலும் மேம்படுத்தலாம்','Needs Optimization':'மேம்படுத்த வேண்டும்',
-  'Optimization Checklist':'மேம்படுத்த வேண்டிய பட்டியல்','Apply Fix':'திருத்தத்தைச் செய்','Generate Final Listing':'இறுதிப் பட்டியலை உருவாக்கு',
-  'Marketplace Ready Listing':'சந்தையில் விற்கத் தயாரான பட்டியல்','English Listing':'ஆங்கிலப் பட்டியல்','தமிழ் பட்டியல்':'தமிழ்ப் பட்டியல்',
-  'Share':'பகிர்','Start Over':'மீண்டும் தொடங்கு','My Craft Listings':'எனது கைவினைப் பட்டியல்கள்','Artisan Dashboard':'கைவினைஞர் முகப்புப் பலகை',
-  'Recent Products':'சமீபத்திய பொருட்கள்','Live Listing':'செயலில் உள்ள பட்டியல்','Active Listings':'செயலில் உள்ள பட்டியல்கள்',
-  'Fair Price Accuracy':'நியாய விலை துல்லியம்','Avg Sell Coach Score':'சராசரி விற்பனை வழிகாட்டி மதிப்பெண்',
-  'Add exact height and weight measurements for buyer confidence':'வாங்குபவரின் நம்பிக்கைக்காக சரியான உயரம் மற்றும் எடையைச் சேர்க்கவும்',
-  'Mention eco-friendly or natural material benefits':'சுற்றுச்சூழலுக்கு உகந்த அல்லது இயற்கை மூலப்பொருளின் நன்மைகளைக் குறிப்பிடவும்',
-  'Include a close-up photo showing craftsmanship detail':'கைவினை நுணுக்கங்களைக் காட்டும் அருகாமைப் புகைப்படத்தைச் சேர்க்கவும்',
-  'English':'ஆங்கிலம்','Tamil':'தமிழ்','Language':'மொழி',
-  'Empowering traditional artisans with intelligent tools':'பாரம்பரிய கைவினைஞர்களுக்கு நவீன கருவிகள் மூலம் ஆதரவு',
-  '© 2026 CraftLens — AI Sell Coach for Artisans':'© 2026 CraftLens — கைவினைஞர்களுக்கான AI விற்பனை வழிகாட்டி',
-  'Marketplace pricing insights built from actual South Indian artisan benchmarks.':'தென்னிந்திய கைவினைப் பொருட்களின் சந்தை விலைகளை அடிப்படையாகக் கொண்ட தகவல்கள்.',
-  'Simulate buyer questions, optimize quality scores, and publish ready-to-sell listings.':'வாங்குபவர்களின் கேள்விகளைப் பயிற்சி செய்து, தரத்தை மேம்படுத்தி, விற்பனைக்கான பட்டியலை உருவாக்குங்கள்.',
-  'Home décor and gifting.':'வீட்டு அலங்காரம் மற்றும் பரிசளிப்புக்கு ஏற்றது.',
-  'INR':'இந்திய ரூபாய்',
+  'Home': 'முகப்பு',
+  'Analyze': 'பகுப்பாய்வு',
+  'My Crafts': 'எனது கைவினைப் பொருட்கள்',
+  'Analysis ready': 'பகுப்பாய்வு தயார்',
+  'Analyze Craft': 'கைவினைப் பொருளைப் பகுப்பாய்வு செய்',
+  'Close menu': 'பட்டியலை மூடு',
+  'Open menu': 'பட்டியலைத் திற',
+  'Upload & Describe': 'பதிவேற்றி விவரிக்கவும்',
+  'AI Analysis': 'AI பகுப்பாய்வு',
+  'Listing': 'பட்டியல்',
+  'Fair Price': 'நியாயமான விலை',
+  'Buyer Q&A': 'வாங்குபவர் கேள்விகள்',
+  'Sell Coach': 'விற்பனை வழிகாட்டி',
+  'Final Listing': 'இறுதிப் பட்டியல்',
+  'Empowering Artisans with': 'கைவினைஞர்களுக்கு அதிகாரம் அளிக்கும்',
+  'AI Intelligence': 'AI நுண்ணறிவு',
+  'Seamless Workflow': 'எளிய செயல்முறை',
+  'Designed specifically for craft creators': 'கைவினைப் படைப்பாளர்களுக்காகவே வடிவமைக்கப்பட்டது',
+  'Core Capabilities': 'முக்கிய அம்சங்கள்',
+  'Tools to market & price your craft with confidence': 'உங்கள் கைவினைப் பொருளை நம்பிக்கையுடன் சந்தைப்படுத்தவும் விலை நிர்ணயிக்கவும் உதவும் கருவிகள்',
+  'Upload Photo': 'புகைப்படத்தைப் பதிவேற்றவும்',
+  'Capture or upload a clear photo of your handmade product.': 'உங்கள் கையால் செய்த பொருளின் தெளிவான புகைப்படத்தை எடுக்கவும் அல்லது பதிவேற்றவும்.',
+  'CraftLens detects material, craftsmanship & key visual features.': 'CraftLens பொருளின் மூலப்பொருள், கைவினை முறை மற்றும் முக்கிய அம்சங்களைக் கண்டறியும்.',
+  'Bilingual Story': 'இருமொழி விளக்கம்',
+  'Auto-generate compelling listings in Tamil & English for global reach.': 'உள்ளூர் மற்றும் உலகளாவிய வாடிக்கையாளர்களுக்காக தமிழ் அல்லது ஆங்கிலத்தில் தயாரிப்பு விளக்கத்தை உருவாக்கும்.',
+  'Fair Market Pricing': 'நியாயமான சந்தை விலை',
+  'Get data-backed price recommendations from verified artisan sales.': 'சந்தைத் தரவின் அடிப்படையில் விலை பரிந்துரைகளைப் பெறுங்கள்.',
+  'Tamil Voice Input': 'தமிழ் குரல் உள்ளீடு',
+  'Speak freely in Tamil. AI extracts factual specifications without hallucination.': 'தமிழில் பேசுங்கள். AI உங்கள் விளக்கத்திலிருந்து பொருள் விவரங்களைப் பெறும்.',
+  'Data-Backed Fair Pricing': 'தரவு அடிப்படையிலான நியாய விலை',
+  'AI Sell Coach': 'AI விற்பனை வழிகாட்டி',
+  'Step 1 of 7': 'படி 1 / 7',
+  'Step 2 of 7': 'படி 2 / 7',
+  'Step 3 of 7': 'படி 3 / 7',
+  'Step 4 of 7': 'படி 4 / 7',
+  'Step 5 of 7': 'படி 5 / 7',
+  'Step 6 of 7': 'படி 6 / 7',
+  'Step 7 of 7': 'படி 7 / 7',
+  'Analyze Your Craft': 'உங்கள் கைவினைப் பொருளைப் பகுப்பாய்வு செய்யுங்கள்',
+  'Upload a clear photo and describe your product. CraftLens AI will do the rest.': 'தெளிவான புகைப்படத்தைப் பதிவேற்றி உங்கள் பொருளை விவரிக்கவும். மீதியை CraftLens AI செய்யும்.',
+  'Product Photo': 'பொருளின் புகைப்படம்',
+  'Describe Your Craft': 'உங்கள் கைவினைப் பொருளை விவரிக்கவும்',
+  'Drop your craft image here': 'உங்கள் பொருளின் புகைப்படத்தை இங்கே விடவும்',
+  'or click to choose from gallery': 'அல்லது கேலரியில் இருந்து தேர்வு செய்யவும்',
+  'JPG, PNG or WEBP · Clear product photo': 'JPG, PNG அல்லது WEBP · தெளிவான புகைப்படம்',
+  'Take Photo': 'புகைப்படம் எடுக்கவும்',
+  'Close': 'மூடு',
+  'AI analyzes your actual image and description. Content changes with every new photo.': 'AI உங்கள் புகைப்படத்தையும் விளக்கத்தையும் பகுப்பாய்வு செய்கிறது. ஒவ்வொரு புதிய புகைப்படத்திற்கும் முடிவு மாறும்.',
+  'Analyze with AI': 'AI மூலம் பகுப்பாய்வு செய்',
+  'Analyzing…': 'பகுப்பாய்வு செய்கிறது…',
+  'Starting camera…': 'கேமரா தொடங்குகிறது…',
+  'Analyzing your craft…': 'உங்கள் கைவினைப் பொருளைப் பகுப்பாய்வு செய்கிறது…',
+  'CraftLens Analysis': 'CraftLens பகுப்பாய்வு',
+  'Facts extracted directly from your photo and description. Unconfirmed info is clearly marked.': 'உங்கள் புகைப்படம் மற்றும் விளக்கத்திலிருந்து பெறப்பட்ட விவரங்கள். உறுதிப்படுத்தப்படாத தகவல்கள் தெளிவாகக் குறிக்கப்படும்.',
+  'Material': 'மூலப்பொருள்',
+  'Craftsmanship': 'கைவினை முறை',
+  'Dimensions': 'அளவுகள்',
+  'Origin': 'பிறப்பிடம்',
+  'Craft Identification': 'கைவினைப் பொருள் அடையாளம்',
+  'AI Price Estimate': 'AI விலை மதிப்பீடு',
+  'Bilingual Product Listing': 'இருமொழித் தயாரிப்புப் பட்டியல்',
+  'Auto-generated listing in Tamil + English optimized for local buyers & e-commerce export.': 'உள்ளூர் வாடிக்கையாளர்கள் மற்றும் இணைய விற்பனைக்காக உருவாக்கப்பட்ட தயாரிப்புப் பட்டியல்.',
+  'Bilingual (Tamil + English)': 'தமிழ் + ஆங்கிலம்',
+  'English Only': 'ஆங்கிலம் மட்டும்',
+  'தமிழ் மட்டும்': 'தமிழ் மட்டும்',
+  'English Description': 'ஆங்கில விளக்கம்',
+  'தமிழ் விவரிப்பு': 'தமிழ் விளக்கம்',
+  'Copy Text': 'உரையை நகலெடு',
+  'Copied!': 'நகலெடுக்கப்பட்டது!',
+  'Recommend Fair Price': 'நியாயமான விலையைப் பரிந்துரை செய்',
+  'Fair Price Recommendation': 'நியாயமான விலை பரிந்துரை',
+  'AI Recommended Selling Price': 'AI பரிந்துரைக்கும் விற்பனை விலை',
+  'Fair Value Price Range': 'நியாயமான விலை வரம்பு',
+  'Minimum Base': 'குறைந்தபட்ச விலை',
+  'Maximum Premium': 'அதிகபட்ச விலை',
+  'Market Benchmarks': 'சந்தை ஒப்பீடுகள்',
+  'Category Market Average': 'வகையின் சராசரி சந்தை விலை',
+  'Your Stated Final Selling Price (INR)': 'நீங்கள் நிர்ணயித்த இறுதி விற்பனை விலை (ரூ.)',
+  'Simulate Buyer Objections': 'வாங்குபவரின் கேள்விகளைப் பயிற்சி செய்',
+  'Buyer Simulator': 'வாங்குபவர் கேள்வி பயிற்சி',
+  'Potential Buyer Asks:': 'வாங்குபவர் கேட்கக்கூடிய கேள்வி:',
+  '✦ Recommended Artisan Answer:': '✦ கைவினைஞருக்கான பரிந்துரைக்கப்பட்ட பதில்:',
+  '✦ Simulated Objection': '✦ மாதிரி வாடிக்கையாளர் கேள்வி',
+  'Quality Audit Score': 'தர மதிப்பீட்டு மதிப்பெண்',
+  'Your listing meets all quality benchmarks!': 'உங்கள் பட்டியல் தர அளவுகோல்களைப் பூர்த்தி செய்கிறது!',
+  'Marketplace Ready': 'சந்தையில் விற்கத் தயார்',
+  'Good — Room to Improve': 'நல்லது — மேலும் மேம்படுத்தலாம்',
+  'Needs Optimization': 'மேம்படுத்த வேண்டும்',
+  'Optimization Checklist': 'மேம்படுத்த வேண்டிய பட்டியல்',
+  'Apply Fix': 'திருத்தத்தைச் செய்',
+  'Generate Final Listing': 'இறுதிப் பட்டியலை உருவாக்கு',
+  'Marketplace Ready Listing': 'சந்தையில் விற்கத் தயாரான பட்டியல்',
+  'English Listing': 'ஆங்கிலப் பட்டியல்',
+  'தமிழ் பட்டியல்': 'தமிழ்ப் பட்டியல்',
+  'Share': 'பகிர்',
+  'Start Over': 'மீண்டும் தொடங்கு',
+  'My Craft Listings': 'எனது கைவினைப் பட்டியல்கள்',
+  'Artisan Dashboard': 'கைவினைஞர் முகப்புப் பலகை',
+  'Recent Products': 'சமீபத்திய பொருட்கள்',
+  'Live Listing': 'செயலில் உள்ள பட்டியல்',
+  'Active Listings': 'செயலில் உள்ள பட்டியல்கள்',
+  'Fair Price Accuracy': 'நியாய விலை துல்லியம்',
+  'Avg Sell Coach Score': 'சராசரி விற்பனை வழிகாட்டி மதிப்பெண்',
+  'Add exact height and weight measurements for buyer confidence': 'வாங்குபவரின் நம்பிக்கைக்காக சரியான உயரம் மற்றும் எடையைச் சேர்க்கவும்',
+  'Mention eco-friendly or natural material benefits': 'சுற்றுச்சூழலுக்கு உகந்த அல்லது இயற்கை மூலப்பொருளின் நன்மைகளைக் குறிப்பிடவும்',
+  'Include a close-up photo showing craftsmanship detail': 'கைவினை நுணுக்கங்களைக் காட்டும் அருகாமைப் புகைப்படத்தைச் சேர்க்கவும்',
+  'English': 'ஆங்கிலம்',
+  'Tamil': 'தமிழ்',
+  'Language': 'மொழி',
+  'Empowering traditional artisans with intelligent tools': 'பாரம்பரிய கைவினைஞர்களுக்கு நவீன கருவிகள் மூலம் ஆதரவு',
+  '© 2026 CraftLens — AI Sell Coach for Artisans': '© 2026 CraftLens — கைவினைஞர்களுக்கான AI விற்பனை வழிகாட்டி',
+  'Marketplace pricing insights built from actual South Indian artisan benchmarks.': 'தென்னிந்திய கைவினைப் பொருட்களின் சந்தை விலைகளை அடிப்படையாகக் கொண்ட தகவல்கள்.',
+  'Simulate buyer questions, optimize quality scores, and publish ready-to-sell listings.': 'வாங்குபவர்களின் கேள்விகளைப் பயிற்சி செய்து, தரத்தை மேம்படுத்தி, விற்பனைக்கான பட்டியலை உருவாக்குங்கள்.',
+  'Home décor and gifting.': 'வீட்டு அலங்காரம் மற்றும் பரிசளிப்புக்கு ஏற்றது.',
+  'INR': 'இந்திய ரூபாய்',
   'AI Digital Selling Assistant for Artisans': 'கைவினைஞர்களுக்கான AI டிஜிட்டல் விற்பனை உதவியாளர்',
   'Learn More': 'மேலும் அறிக',
   'Start analyzing your craft products today': 'உங்கள் கைவினைப் பொருட்களை இன்றே பகுப்பாய்வு செய்யத் தொடங்குங்கள்',
@@ -78,7 +139,6 @@ const TA: Record<string, string> = {
   'Optimization recommendations to increase buyer trust & search visibility.': 'வாடிக்கையாளர் நம்பிக்கையையும் தேடலில் காணப்படும் வாய்ப்பையும் அதிகரிக்கும் பரிந்துரைகள்.',
   'Applied': 'செயல்படுத்தப்பட்டது',
   'Coach Score': 'வழிகாட்டி மதிப்பெண்',
-  'Listing': 'பட்டியல்',
   'AI Coach': 'AI வழிகாட்டி',
   'Replace': 'மாற்று',
   'Remove': 'நீக்கு',
@@ -130,12 +190,9 @@ const TA: Record<string, string> = {
   'Traditional handcraft technique with artisan skill': 'கைவினைஞரின் திறமையுடன் செய்யப்பட்ட பாரம்பரிய கைவினை முறை',
   'Tamil Nadu Artisan Cluster': 'தமிழ்நாடு கைவினைப் பகுதி',
   'Not identifiable': 'கண்டறிய முடியவில்லை',
-  'AI Price Estimate': 'AI விலை மதிப்பீடு',
   '₹': '₹',
   'Calculated for': 'இதற்கான கணக்கீடு',
   'using real market data from verified artisan platforms.': 'சரிபார்க்கப்பட்ட கைவினைச் சந்தைத் தரவின் அடிப்படையில்.',
-  'Your Stated Final Selling Price (INR)': 'நீங்கள் நிர்ணயித்த இறுதி விற்பனை விலை (ரூ.)',
-  'Your listing meets all quality benchmarks!': 'உங்கள் பட்டியல் தர அளவுகோல்களைப் பூர்த்தி செய்கிறது!',
   'STEP': 'படி',
   'Handpainted Terracotta Vase': 'கையால் வண்ணம் தீட்டிய டெரகோட்டா குவளை',
   'Handcrafted Clay Pot (Medium)': 'கையால் செய்யப்பட்ட நடுத்தர களிமண் பானை',
@@ -150,8 +207,6 @@ const TA: Record<string, string> = {
   'Coimbatore, TN': 'கோயம்புத்தூர், தமிழ்நாடு',
   'Madurai, TN': 'மதுரை, தமிழ்நாடு',
   'Chennai, TN': 'சென்னை, தமிழ்நாடு',
-  'AI Sell Coach': 'AI விற்பனை வழிகாட்டி',
-  'Final Listing': 'இறுதிப் பட்டியல்',
   'CraftLens': 'CraftLens',
   'recommended': 'பரிந்துரைக்கப்படுகிறது',
   'Handwoven Durable Craft Item': 'நீடித்த கையால் பின்னப்பட்ட கைவினைப் பொருள்',
@@ -166,7 +221,6 @@ const TA: Record<string, string> = {
   'Microphone denied.': 'மைக்ரோஃபோன் அனுமதி மறுக்கப்பட்டது.',
   'Please upload or take a product photo first.': 'முதலில் பொருளின் புகைப்படத்தைப் பதிவேற்றவும் அல்லது எடுக்கவும்.',
   'Analysis failed. Please try again.': 'பகுப்பாய்வு தோல்வியடைந்தது. மீண்டும் முயற்சிக்கவும்.',
-  'Facts extracted directly from your photo and description. Unconfirmed info is clearly marked.': 'உங்கள் புகைப்படம் மற்றும் விளக்கத்திலிருந்து பெறப்பட்ட விவரங்கள். உறுதிப்படுத்தப்படாத தகவல்கள் தெளிவாகக் குறிக்கப்படும்.',
   'Range ₹': 'விலை வரம்பு ₹',
   'Sterling Silver / Gold-plated / Semi-precious Stones': 'தூய வெள்ளி / தங்க முலாம் / அரை விலைமதிப்புள்ள கற்கள்',
   'Hand-crafted traditional jewelry with intricate filigree work': 'நுணுக்கமான கம்பி வேலைப்பாடுகளுடன் கையால் செய்யப்பட்ட பாரம்பரிய நகை',
@@ -181,9 +235,6 @@ const TA: Record<string, string> = {
   'Stone Craft': 'கற்சிற்பக் கைவினை',
   'Speak or type: material, size, technique, story, origin...': 'பொருளின் மூலப்பொருள், அளவு, செய்முறை, கதை, பிறப்பிடம் ஆகியவற்றைப் பேசவும் அல்லது தட்டச்சு செய்யவும்...',
   'How It Works': 'இது எவ்வாறு செயல்படுகிறது',
-  'Fair Price Recommendation': 'நியாயமான விலை பரிந்துரை',
-  'Maximum Premium': 'அதிகபட்ச விலை',
-  'Fair Value Price Range': 'நியாயமான விலை வரம்பு',
   'Brass Temple Oil Lamp': 'பித்தளை கோவில் எண்ணெய் விளக்கு',
   'Kanchipuram Silk Saree': 'காஞ்சிபுரம் பட்டுச் சேலை',
   'Natural Palm Leaf Basket': 'இயற்கை பனை ஓலைக் கூடை',
@@ -195,12 +246,8 @@ const TA: Record<string, string> = {
   'Authentic Hand-cast Brass Metalware': 'பாரம்பரிய முறையில் வார்க்கப்பட்ட பித்தளைக் கைவினைப் பொருள்',
   'Handwoven Natural Artisan Basket': 'கையால் பின்னப்பட்ட இயற்கைக் கூடை',
   'Handcrafted Traditional Artisan Jewelry': 'பாரம்பரிய கைவினை நகை',
-  'Buyer Simulator': 'வாங்குபவர் கேள்வி பயிற்சி',
-  '✦ Recommended Artisan Answer:': '✦ கைவினைஞருக்கான பரிந்துரைக்கப்பட்ட பதில்:',
-  'Active Listings': 'செயலில் உள்ள பட்டியல்கள்',
   'Coach Score:': 'வழிகாட்டி மதிப்பெண்:',
   'Add New Craft': 'புதிய கைவினைப் பொருளைச் சேர்',
-  'Avg Sell Coach Score': 'சராசரி விற்பனை வழிகாட்டி மதிப்பெண்',
   'No listings yet': 'இன்னும் பட்டியல்கள் இல்லை',
   'Brass Temple Lamp (Medium)': 'நடுத்தர பித்தளை கோவில் விளக்கு',
   'Handcast Bronze Idol (5 in)': 'கையால் வார்க்கப்பட்ட வெண்கலச் சிலை (5 அங்குலம்)',
@@ -239,31 +286,68 @@ const TA: Record<string, string> = {
   'How do you package this craft so it does not get damaged during shipping?': 'போக்குவரத்தின்போது சேதமடையாமல் இந்தப் பொருளை எவ்வாறு பொதி செய்கிறீர்கள்?',
   'We wrap each item in double-layer shock-absorbing foam and heavy corrugated box packaging.': 'ஒவ்வொரு பொருளையும் அதிர்வைத் தாங்கும் இரட்டை ஃபோம் மற்றும் வலுவான அட்டைப்பெட்டியில் பாதுகாப்பாகப் பொதி செய்கிறோம்.',
   'and prepares confident answers.': 'நம்பிக்கையுடன் பதிலளிக்க உதவுகிறது.',
-  'Auto-generated listing in Tamil + English optimized for local buyers & e-commerce export.': 'உள்ளூர் வாடிக்கையாளர்கள் மற்றும் இணைய விற்பனைக்காக உருவாக்கப்பட்ட தயாரிப்புப் பட்டியல்.',
-  'AI Intelligence': 'AI நுண்ணறிவு',
 };
+
 const normalize = (s: string) => s.replace(/\s+/g, ' ').trim();
+
 export const localizeText = (value: string, language: 'en' | 'ta') => {
   if (language !== 'ta') return value;
   const key = normalize(value);
   return TA[key] ?? value;
 };
 
-function translateNode(node: React.ReactNode, language: 'en' | 'ta'): React.ReactNode {
-  if (typeof node === 'string') return localizeText(node, language);
-  if (typeof node === 'number' || node == null || typeof node === 'boolean') return node;
-  if (Array.isArray(node)) return node.map((child, i) => <React.Fragment key={i}>{translateNode(child, language)}</React.Fragment>);
+function translateNode(
+  node: React.ReactNode,
+  language: 'en' | 'ta'
+): React.ReactNode {
+  if (typeof node === 'string') {
+    return localizeText(node, language);
+  }
+
+  if (
+    typeof node === 'number' ||
+    node == null ||
+    typeof node === 'boolean'
+  ) {
+    return node;
+  }
+
+  if (Array.isArray(node)) {
+    return node.map((child, i) => (
+      <React.Fragment key={i}>
+        {translateNode(child, language)}
+      </React.Fragment>
+    ));
+  }
+
   if (React.isValidElement(node)) {
-    const props: Record<string, unknown> = { ...(node.props as Record<string, unknown>) };
+    const props: Record<string, unknown> = {
+      ...(node.props as Record<string, unknown>),
+    };
+
     for (const key of ['placeholder', 'title', 'aria-label', 'alt']) {
-      if (typeof props[key] === 'string') props[key] = localizeText(props[key] as string, language);
+      if (typeof props[key] === 'string') {
+        props[key] = localizeText(props[key] as string, language);
+      }
     }
-    if (props.children !== undefined) props.children = translateNode(props.children as React.ReactNode, language);
+
+    if (props.children !== undefined) {
+      props.children = translateNode(
+        props.children as React.ReactNode,
+        language
+      );
+    }
+
     return React.cloneElement(node, props);
   }
+
   return node;
 }
-export const Localized: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+
+export const Localized: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   const { language } = useLanguage();
+
   return <>{translateNode(children, language)}</>;
 };
