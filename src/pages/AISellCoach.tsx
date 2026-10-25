@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Localized } from '../context/Localized';
 import { useProduct } from '../context/ProductContext';
-import { Award, CheckCircle2, ArrowRight, Sparkles, Plus } from 'lucide-react';
+import { Award, CheckCircle2, ArrowRight, Sparkles} from 'lucide-react';
 
 interface CoachProps {
   onNext: () => void;
